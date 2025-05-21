@@ -1,0 +1,11 @@
+services:
+  mainapp:
+    build: .
+    container_name: taskmanagement
+    ports:
+      - "8080:8080"
+    networks:
+      - taskmanagement
+    restart: always
+networks:
+  taskmanagement:
