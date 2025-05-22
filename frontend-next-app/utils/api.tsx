@@ -70,7 +70,7 @@ export async function fetchDataFromExternalApi() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWlsMUBnbWFpbC5jb20iLCJpYXQiOjE3NDc5NTUzMjQsImV4cCI6MTc0Nzk1ODkyNH0.Pa4a6NdxxL--un9B_e_zArTYrRW2_iLAarfX7KSA-vU",
+        //'Authorization': 'Bearer ' + "",
       }
     });
     if (!response.ok) {
