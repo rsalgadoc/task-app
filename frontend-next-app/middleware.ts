@@ -7,9 +7,8 @@ export function middleware(req: NextRequest, event: NextFetchEvent) {
     const token = req.cookies.get("next-auth.session-token");
     if (!token?.value) {
       // Authentication failed
-      return NextResponse.redirect(new URL("/auth/login", req.url)); // Redirect to login
+      return NextResponse.redirect(new URL("/auth/signin", req.url)); // Redirect to login
     }
-
     // Authentication successful, continue to the requested page
     return NextResponse.next();
   } catch (error) {
@@ -23,5 +22,14 @@ export function middleware(req: NextRequest, event: NextFetchEvent) {
 }
 
 export const config = {
-  matcher: "/dashboard/:path",
-};
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|auth/signin).*)',
+  ],
+}
