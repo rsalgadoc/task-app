@@ -16,22 +16,22 @@ import {
   CardTitle
 } from '@/components/ui/card';
 import { Product } from './product';
-import { SelectProduct } from '@/lib/db';
+import { Task } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export function ProductsTable({
-  products,
+  tasks,
   offset,
   totalProducts
 }: {
-  products: SelectProduct[];
+  tasks: Task[];
   offset: number;
   totalProducts: number;
 }) {
   let router = useRouter();
-  let productsPerPage = 5;
+  let productsPerPage = 10;
 
   function prevPage() {
     router.back();
@@ -53,23 +53,20 @@ export function ProductsTable({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="hidden w-[100px] sm:table-cell">
-                <span className="sr-only">Image</span>
-              </TableHead>
-              <TableHead>Name</TableHead>
+              <TableHead>Id</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">Price</TableHead>
+              <TableHead className="hidden md:table-cell">priority</TableHead>
               <TableHead className="hidden md:table-cell">
-                Total Sales
+                description
               </TableHead>
-              <TableHead className="hidden md:table-cell">Created at</TableHead>
+              <TableHead className="hidden md:table-cell">type</TableHead>
               <TableHead>
                 <span className="sr-only">Actions</span>
               </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {products.map((product) => (
+            {tasks.map((product) => (
               <Product key={product.id} product={product} />
             ))}
           </TableBody>

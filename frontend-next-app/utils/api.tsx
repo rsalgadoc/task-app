@@ -62,3 +62,26 @@ export const BAPI = process.env.BACKEND_SERVER as string;
 export const Token = process.env.BEARER as string;
 
 
+const API_KEY = process.env.API_KEY;
+
+export async function fetchDataFromExternalApi() {
+  try {
+    const response = await fetch(`${BACKEND_API}/tasks`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYWlsMUBnbWFpbC5jb20iLCJpYXQiOjE3NDc5NTUzMjQsImV4cCI6MTc0Nzk1ODkyNH0.Pa4a6NdxxL--un9B_e_zArTYrRW2_iLAarfX7KSA-vU",
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("No connection to Backend fetchDataFromExternalApi");
+    return error;
+  }
+}
+
+

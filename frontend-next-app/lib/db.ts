@@ -1,57 +1,67 @@
 import 'server-only';
 
 import {
-  pgTable,
-  text,
-  numeric,
-  integer,
-  timestamp,
-  pgEnum,
-  serial
-} from 'drizzle-orm/pg-core';
-import { createInsertSchema } from 'drizzle-zod';
+  pgEnum} from 'drizzle-orm/pg-core';
+import {fetchDataFromExternalApi} from "./../utils/api";
+import { log } from 'console';
 
 export const db = null;
 
 export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
 
-export const products = pgTable('products', {
-  id: serial('id').primaryKey(),
-  imageUrl: text('image_url').notNull(),
-  name: text('name').notNull(),
-  status: statusEnum('status').notNull(),
-  price: numeric('price', { precision: 10, scale: 2 }).notNull(),
-  stock: integer('stock').notNull(),
-  availableAt: timestamp('available_at').notNull()
-});
+export interface Task {
+  id: number;
+  state: State;
+  priority: string;
+  description: string;
+  type: string;
+  assigned: Assigned;
+}
+export interface State {
+  id: number;
+  name: string;
+}
+export interface Assigned {
+  id: number;
+  fullName: string;
+  email: string;
+  password: string;
+  createdAt: string;
+  updatedAt: string;
+  enabled: boolean;
+  accountNonLocked: boolean;
+  accountNonExpired: boolean;
+  credentialsNonExpired: boolean;
+  username: string;
+  authorities?: (null)[] | null;
+}
 
-export type SelectProduct = typeof products.$inferSelect;
-export const insertProductSchema = createInsertSchema(products);
 
 export async function getProducts(
   search: string,
   offset: number
 ): Promise<{
-  products: SelectProduct[];
+  tasks: Task[];
   newOffset: number | null;
   totalProducts: number;
 }> {
   // Always search the full table, not per page
   if (search) {
-    return { products: [], newOffset: null, totalProducts: 0 };
+    return { tasks: [], newOffset: null, totalProducts: 0 };
   }
 
   if (offset === null) {
-    return { products: [], newOffset: null, totalProducts: 0 };
+    return { tasks: [], newOffset: null, totalProducts: 0 };
   }
 
-
-  let newOffset = [].length >= 5 ? offset + 5 : null;
+  const data =  await fetchDataFromExternalApi();
+  var length = data.length;
+  let newOffset = length >= 10 ? offset + 10 : null;
 
   return {
-    products: [],
+    tasks: data,
     newOffset,
-    totalProducts: 0
+    totalProducts: length
   };
 }
 

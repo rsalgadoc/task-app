@@ -1,4 +1,11 @@
 import SignInForm from "./signInForm";
+import {
+  Card,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from '@/components/ui/card';
 export const metadata = {
   title: "Login Page",
   description: "Login page for our app",
@@ -7,11 +14,18 @@ export const metadata = {
 
 export default async function LoginPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-        <h2 className="mb-6 text-3xl font-bold text-gray-900">Welcome Back</h2>
-        <SignInForm />
-      </div>
+    <div className="min-h-screen flex justify-center items-start md:items-center p-8">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+        </CardHeader>
+        <CardFooter>
+          <SignInForm />
+        </CardFooter>
+      </Card>
     </div>
+
   );
 }
+
+
+
