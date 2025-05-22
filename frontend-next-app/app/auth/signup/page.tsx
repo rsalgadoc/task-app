@@ -1,5 +1,5 @@
 import SignUpForm from "./signUpForm";
-import { getServerAuthSession } from "@/utils/auth";
+import { getServerAuthSession } from "../../auth";
 import { redirect } from "next/navigation";
 
 export const metadata = {

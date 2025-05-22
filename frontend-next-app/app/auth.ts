@@ -1,15 +1,10 @@
 import { NextAuthOptions, getServerSession } from "next-auth";
-import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import apiAuthSignIn from "./../utils/api";
 import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID as string,
-      clientSecret: process.env.GITHUB_SECRET as string,
-    }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {

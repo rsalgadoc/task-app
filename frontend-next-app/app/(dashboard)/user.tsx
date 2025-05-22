@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import Link from 'next/link';
+import  SignOut  from '@/components/ui/signout-button';
 
 export async function User() {
   const session = await getServerAuthSession();
@@ -38,7 +38,9 @@ export async function User() {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-
+        <DropdownMenuItem>
+            <SignOut/>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
