@@ -3,8 +3,6 @@ import 'server-only';
 import {
   pgEnum} from 'drizzle-orm/pg-core';
 import {deleteProductByIdFromExternalApi, getProductsFromExternalApi} from "./../utils/api";
-import { log } from 'console';
-import { cookies } from 'next/headers';
 export const db = null;
 
 export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
@@ -53,8 +51,6 @@ export async function getProducts(
   if (offset === null) {
     return { tasks: [], newOffset: null, totalProducts: 0 };
   }
-  //const token = (await cookies()).get('api_token')?.value;
-  //console.log("token = " + token);
   const data =  await getProductsFromExternalApi();
   if(data==null){
     return { tasks: [], newOffset: null, totalProducts: 0 };

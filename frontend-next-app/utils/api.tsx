@@ -92,8 +92,6 @@ export async function deleteProductByIdFromExternalApi(id: number) {
   try {
     let session = await getServerAuthSession();
     let token = session?.accessToken;
-    console.log(token);
-    console.log(`${BACKEND_API}/tasks/`+id);
     const response = await fetch(`${BACKEND_API}/tasks/`+id, {
       method: "DELETE",
       headers: {
@@ -104,7 +102,6 @@ export async function deleteProductByIdFromExternalApi(id: number) {
       throw new Error('Failed to delete data');
     }
     const data = await response.text();
-    console.log(data);
     return data;
   } catch (error) {
     console.log("No connection to Backend deleteProductByIdFromExternalApi");
