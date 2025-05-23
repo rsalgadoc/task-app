@@ -28,11 +28,12 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account, user }) {
       // Persist the OAuth access_token to the token right after signin
       if (account) {
-        token.accessToken = user;
+        token.accessToken = user?.accessToken;
       }
-      return user as unknown as JWT;
+       return token;
     },
     async session({ session, token, user }) {
+      session.accessToken = token.accessToken;
       // Send properties to the client, like an access_token from a provider.
       return session;
     },

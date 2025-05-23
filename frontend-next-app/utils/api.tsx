@@ -1,5 +1,6 @@
-import { any } from "zod";
+import { getServerAuthSession } from './../app/auth';
 import { BACKEND_API } from "./constants";
+import { cookies } from 'next/headers';
 export default async function apiAuthSignIn(
   credentials: Record<"email" | "password", string> | undefined
 ) {
@@ -18,7 +19,9 @@ export default async function apiAuthSignIn(
     const accessToken = await response.text();
     console.log(accessToken);
     console.log("credentials", credentials);
-    return { accessToken, credentials };
+    const user = { id: "1", name: "J Smith", email: "jsmith@example.com", token: "dsgdfgdfgdfhgdfgdfg@example.com"  }
+    
+    return { ...user, accessToken };
   } catch (error) {
     // return { error: error.message };
     console.log("No connection to Backend",error);
@@ -66,11 +69,13 @@ const API_KEY = process.env.API_KEY;
 
 export async function fetchDataFromExternalApi() {
   try {
+    let session = await getServerAuthSession();
+    let token = session?.accessToken;
     const response = await fetch(`${BACKEND_API}/tasks`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        //'Authorization': 'Bearer ' + "",
+        'Authorization': 'Bearer ' + token,
       }
     });
     if (!response.ok) {
@@ -80,7 +85,7 @@ export async function fetchDataFromExternalApi() {
     return data;
   } catch (error) {
     console.log("No connection to Backend fetchDataFromExternalApi");
-    return error;
+    return null;
   }
 }
 

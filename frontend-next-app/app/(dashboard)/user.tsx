@@ -13,7 +13,7 @@ import  SignOut  from '@/components/ui/signout-button';
 
 export async function User() {
   const session = await getServerAuthSession();
-  let user = session?.user;
+  //let user = session?.user;
 
   return (
     <DropdownMenu>
@@ -24,7 +24,7 @@ export async function User() {
           className="overflow-hidden rounded-full"
         >
           <Image
-            src={user?.image ?? '/placeholder-user.jpg'}
+            src={'/placeholder-user.jpg'}
             width={36}
             height={36}
             alt="Avatar"
