@@ -3,6 +3,8 @@ import { File, PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProductsTable } from './products-table';
 import { getProducts } from '@/lib/db';
+import Link from 'next/link';
+
 
 export default async function ProductsPage(
   props: {
@@ -35,12 +37,14 @@ export default async function ProductsPage(
               Export
             </span>
           </Button>
-          <Button size="sm" className="h-8 gap-1">
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Task
-            </span>
-          </Button>
+          <Link href="/customers">
+            <Button size="sm" className="h-8 gap-1">
+              <PlusCircle className="h-3.5 w-3.5" />
+              <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+                Add Task
+              </span>
+            </Button>
+          </Link>
         </div>
       </div>
       <TabsContent value="all">
