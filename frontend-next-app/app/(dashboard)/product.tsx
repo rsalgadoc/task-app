@@ -39,7 +39,8 @@ export function Product({ product }: { product: Task }) {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>
-              <form action={deleteProduct}>
+              <form name="deleteProduct" action={deleteProduct}>
+                <input name="id" value={product.id} type='hidden' />
                 <button type="submit">Delete</button>
               </form>
             </DropdownMenuItem>

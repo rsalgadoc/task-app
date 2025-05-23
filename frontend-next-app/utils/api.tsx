@@ -1,6 +1,5 @@
 import { getServerAuthSession } from './../app/auth';
 import { BACKEND_API } from "./constants";
-import { cookies } from 'next/headers';
 export default async function apiAuthSignIn(
   credentials: Record<"email" | "password", string> | undefined
 ) {
@@ -67,7 +66,7 @@ export const Token = process.env.BEARER as string;
 
 const API_KEY = process.env.API_KEY;
 
-export async function fetchDataFromExternalApi() {
+export async function getProductsFromExternalApi() {
   try {
     let session = await getServerAuthSession();
     let token = session?.accessToken;
@@ -84,7 +83,31 @@ export async function fetchDataFromExternalApi() {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("No connection to Backend fetchDataFromExternalApi");
+    console.log("No connection to Backend getProductsFromExternalApi");
+    return null;
+  }
+}
+
+export async function deleteProductByIdFromExternalApi(id: number) {
+  try {
+    let session = await getServerAuthSession();
+    let token = session?.accessToken;
+    console.log(token);
+    console.log(`${BACKEND_API}/tasks/`+id);
+    const response = await fetch(`${BACKEND_API}/tasks/`+id, {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + token,
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Failed to delete data');
+    }
+    const data = await response.text();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.log("No connection to Backend deleteProductByIdFromExternalApi");
     return null;
   }
 }

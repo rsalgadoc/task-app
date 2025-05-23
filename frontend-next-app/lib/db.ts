@@ -2,7 +2,7 @@ import 'server-only';
 
 import {
   pgEnum} from 'drizzle-orm/pg-core';
-import {fetchDataFromExternalApi} from "./../utils/api";
+import {deleteProductByIdFromExternalApi, getProductsFromExternalApi} from "./../utils/api";
 import { log } from 'console';
 import { cookies } from 'next/headers';
 export const db = null;
@@ -55,7 +55,7 @@ export async function getProducts(
   }
   //const token = (await cookies()).get('api_token')?.value;
   //console.log("token = " + token);
-  const data =  await fetchDataFromExternalApi();
+  const data =  await getProductsFromExternalApi();
   if(data==null){
     return { tasks: [], newOffset: null, totalProducts: 0 };
   }
@@ -70,5 +70,5 @@ export async function getProducts(
 }
 
 export async function deleteProductById(id: number) {
-  
+  await deleteProductByIdFromExternalApi(id);
 }
