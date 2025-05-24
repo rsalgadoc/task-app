@@ -41,4 +41,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 npm install next-auth@4.24.11
 
 
+# Docker
+
+```bash
+docker init
+```
+
+? What directory is your build output to? (comma-separate if multiple)
+```bash
+.next/standalone
+```
+
 
