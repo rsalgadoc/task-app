@@ -45,7 +45,8 @@ async session({ session, token }: { session: any; token: JWT }) {
 
   pages: {
      signIn: "/auth/signin",
-     newUser: '/auth/signup'
+     newUser: '/auth/signup',
+     error: "/auth/signin",
   },
   jwt: {
     secret: process.env.NEXT_JWT_SECRET as string,

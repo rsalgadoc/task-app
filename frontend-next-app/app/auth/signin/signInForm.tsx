@@ -2,28 +2,30 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
+import { useSearchParams } from 'next/navigation';
 
 export default function SignInForm() {
-  const [username , setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [, setError] = useState("");
+  const searchParams = useSearchParams();
+  const error1 = searchParams.get('error');
+
 
   async function handleSubmit(event: any) {
     event.preventDefault();
-try{
-  await signIn("credentials", {
-    email,
-    password,
-    callbackUrl: "/",
-    redirect: true,
-  });
+    try {
+      await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "/",
+        redirect: true,
+      });
 
-}
-catch(error){
-  setError("Invalid credentials");
-}
+    }
+    catch (error) {
+      setError("Invalid credentials");
+    }
   }
   
   return (
@@ -71,7 +73,7 @@ catch(error){
         </button>
         <ToastContainer autoClose={3000} hideProgressBar />
       </form>
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error1 && <p className="text-red-500 text-sm">{error1}</p>}
     </div>
   );
 }

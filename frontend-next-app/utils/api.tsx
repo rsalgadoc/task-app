@@ -14,13 +14,13 @@ export default async function apiAuthSignIn(credentials: {
     });
     //if 401 unauthorized
     if (!response.ok) {
-      return new Error("Invalid credentials");
+      throw new Error('Invalid credentials');
     }
     const accessToken = await response.text();
     return  accessToken ;
   } catch (error) {
     console.log("No connection to Backend",error);
-    return error;
+    throw error;
   }
 }
 export async function apiAuthSignUp(credentials: {
