@@ -51,5 +51,22 @@ docker init
 ```bash
 .next/standalone
 ```
+# ENV
 
+
+on compose.yaml 
+
+    env_file: ".env"
+
+```bash
+# run in the container to see if the env variable are correct
+printenv
+```
+
+
+# run in docker
+
+```bash
+docker compose up --build
+```
 

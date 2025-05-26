@@ -1,8 +1,9 @@
 import { getServerAuthSession } from './../app/auth';
 import { BACKEND_API } from "./constants";
-export default async function apiAuthSignIn(
-  credentials: Record<"email" | "password", string> | undefined
-) {
+export default async function apiAuthSignIn(credentials: {
+  email: string;
+  password: string;
+}) {
   try {
     const response = await fetch(`${BACKEND_API}/auth/signin`, {
       method: "POST",
@@ -16,13 +17,8 @@ export default async function apiAuthSignIn(
       return new Error("Invalid credentials");
     }
     const accessToken = await response.text();
-    console.log(accessToken);
-    console.log("credentials", credentials);
-    const user = { id: "1", name: "J Smith", email: "jsmith@example.com", token: "dsgdfgdfgdfhgdfgdfg@example.com"  }
-    
-    return { ...user, accessToken };
+    return  accessToken ;
   } catch (error) {
-    // return { error: error.message };
     console.log("No connection to Backend",error);
     return error;
   }
@@ -68,13 +64,12 @@ const API_KEY = process.env.API_KEY;
 
 export async function getProductsFromExternalApi() {
   try {
-    let session = await getServerAuthSession();
-    let token = session?.accessToken;
+    let session = await getServerAuthSession() as any;
     const response = await fetch(`${BACKEND_API}/tasks`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        'Authorization': 'Bearer ' + token,
+        'Authorization': 'Bearer ' + session.accessToken,
       }
     });
     if (!response.ok) {
@@ -90,12 +85,11 @@ export async function getProductsFromExternalApi() {
 
 export async function deleteProductByIdFromExternalApi(id: number) {
   try {
-    let session = await getServerAuthSession();
-    let token = session?.accessToken;
+    let session = await getServerAuthSession() as any;
     const response = await fetch(`${BACKEND_API}/tasks/`+id, {
       method: "DELETE",
       headers: {
-        'Authorization': 'Bearer ' + token,
+        'Authorization': 'Bearer ' + session.accessToken,
       }
     });
     if (!response.ok) {

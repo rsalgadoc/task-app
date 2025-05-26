@@ -2,6 +2,7 @@ import { NextAuthOptions, getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import apiAuthSignIn from "./../utils/api";
 import { JWT } from "next-auth/jwt";
+import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,23 +21,22 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid credentials");
         }
         const user = await apiAuthSignIn(credentials);
-        return user;
+        return user as any;
       },
     }),
   ],
   callbacks: {
     async jwt({ token, account, user }) {
-      // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        token.accessToken = user?.accessToken;
+      if (user) {
+        // Add a new prop on token for user data
+        token.data = user;
       }
-       return token;
+      return Promise.resolve(token);
     },
-    async session({ session, token, user }) {
-      session.accessToken = token.accessToken;
-      // Send properties to the client, like an access_token from a provider.
+async session({ session, token }: { session: any; token: JWT }) {
+      session.accessToken = token.data;
       return session;
-    },
+},
   },
   session: {
     strategy: "jwt",
@@ -58,3 +58,6 @@ export const authOptions: NextAuthOptions = {
  * @see https://next-auth.js.org/configuration/nextjs
  */
 export const getServerAuthSession = () => getServerSession(authOptions);
+
+
+
