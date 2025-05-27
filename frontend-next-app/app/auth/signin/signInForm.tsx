@@ -1,16 +1,19 @@
 "use client";
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { useSearchParams } from 'next/navigation';
+
+function Search() {
+  const searchParams = useSearchParams()
+  const error = searchParams.get('error');
+  return <p className="text-red-500 text-sm">{error}</p>
+}
 
 export default function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [, setError] = useState("");
-  const searchParams = useSearchParams();
-  const error1 = searchParams.get('error');
-
 
   async function handleSubmit(event: any) {
     event.preventDefault();
@@ -73,7 +76,9 @@ export default function SignInForm() {
         </button>
         <ToastContainer autoClose={3000} hideProgressBar />
       </form>
-      {error1 && <p className="text-red-500 text-sm">{error1}</p>}
+      <Suspense>
+        <Search />
+      </Suspense>
     </div>
   );
 }
