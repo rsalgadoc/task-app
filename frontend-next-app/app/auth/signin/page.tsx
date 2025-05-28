@@ -1,11 +1,9 @@
 import SignInForm from "./signInForm";
 import {
   Card,
-  CardDescription,
+  CardContent,
   CardFooter,
-  CardHeader,
-  CardTitle
-} from '@/components/ui/card';
+  CardHeader} from '@/components/ui/card';
 export const metadata = {
   title: "Login Page",
   description: "Login page for our app",
@@ -18,8 +16,18 @@ export default async function LoginPage() {
       <Card className="w-full max-w-sm">
         <CardHeader>
         </CardHeader>
-        <CardFooter>
+        <CardContent>
           <SignInForm />
+        </CardContent>
+        <CardFooter>
+          <div>
+            <div className="flex">
+              <p><b>Email: </b>  mail1@gmail.com</p>
+            </div>
+            <div className="flex">
+              <p><b>Password:</b>  testpass</p>
+            </div>
+          </div>
         </CardFooter>
       </Card>
     </div>

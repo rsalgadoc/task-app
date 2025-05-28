@@ -11,11 +11,5 @@ export function SessionProvider({
   session : any;
   basePath : any;
 }) {
-  console.log("SessionProvider ********");
-  console.log({session});
-  console.log("SessionProvider ********");
-  // if(session == null){
-  //   return
-  // }
   return <Provider basePath={basePath} session={session}>{children}</Provider>;
 }
