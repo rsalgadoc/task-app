@@ -70,3 +70,30 @@ printenv
 docker compose up --build
 ```
 
+
+```bash
+docker build -t rsalgadoc/frontend-next-app .
+```
+# Debido a que el build en AWS se queda pegado, por se una instancia muy pequeña, subir a DockerHub con el siguiente comando:
+```bash
+docker push rsalgadoc/frontend-next-app
+```
+
+```bash
+docker pull rsalgadoc/frontend-next-app
+```
+
+```bash
+docker run -d --name frontend-next-app --env-file .env -p 3003:3000 --restart always rsalgadoc/frontend-next-app
+```
+
+```bash
+docker exec -it frontend-next-app sh
+```
+
+```bash
+# run in the container to see if the env variable are correct
+printenv
+```
+
+curl http://172.31.13.246:3003

@@ -21,7 +21,7 @@ export default function SignInForm() {
       await signIn("credentials", {
         email,
         password,
-        callbackUrl: "/",
+        callbackUrl: "/frontend-next-app",
         redirect: true,
       });
 

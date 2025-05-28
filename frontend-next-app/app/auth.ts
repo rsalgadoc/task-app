@@ -27,6 +27,10 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, account, user }) {
+      console.log("callbacks jwt");
+      console.log(token);
+      console.log(account);
+      console.log(user);
       if (user) {
         // Add a new prop on token for user data
         token.data = user;
@@ -34,6 +38,9 @@ export const authOptions: NextAuthOptions = {
       return Promise.resolve(token);
     },
 async session({ session, token }: { session: any; token: JWT }) {
+      console.log("callbacks session");
+      console.log(session);
+      console.log(token);
       session.accessToken = token.data;
       return session;
 },
@@ -44,9 +51,9 @@ async session({ session, token }: { session: any; token: JWT }) {
   },
 
   pages: {
-     signIn: "/auth/signin",
-     newUser: '/auth/signup',
-     error: "/auth/signin",
+     signIn: "/frontend-next-app/auth/signin",
+     newUser: '/frontend-next-app/auth/signup',
+     error: "/frontend-next-app/auth/signin",
   },
   jwt: {
     secret: process.env.NEXT_JWT_SECRET as string,

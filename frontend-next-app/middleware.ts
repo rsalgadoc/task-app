@@ -4,10 +4,14 @@ import type { NextFetchEvent, NextRequest } from "next/server";
 
 export function middleware(req: NextRequest, event: NextFetchEvent) {
   try {
+    console.log("middleware");
     const token = req.cookies.get("next-auth.session-token");
+    console.log(token);
+    console.log(req.url);
     if (!token?.value) {
       // Authentication failed
-      return NextResponse.redirect(new URL("/auth/signin", req.url)); // Redirect to login
+      console.log("!token?.value");
+      return NextResponse.redirect(new URL("/frontend-next-app/auth/signin", req.url)); // Redirect to login
     }
     // Authentication successful, continue to the requested page
     return NextResponse.next();
@@ -30,6 +34,6 @@ export const config = {
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|auth/signin).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|auth/signin).*)', '/',
   ],
 }
