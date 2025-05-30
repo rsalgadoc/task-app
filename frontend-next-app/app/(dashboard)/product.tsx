@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -40,7 +39,7 @@ export function Product({ product }: { product: Task }) {
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>
               <form name="deleteProduct" action={deleteProduct}>
-                <input name="id" value={product.id} type='hidden' />
+                <input name="id" value={product.id!} type='hidden' />
                 <button type="submit">Delete</button>
               </form>
             </DropdownMenuItem>

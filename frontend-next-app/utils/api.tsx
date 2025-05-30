@@ -1,3 +1,4 @@
+import { Task } from '@/lib/db';
 import { getServerAuthSession } from './../app/auth';
 import { BACKEND_API } from "./constants";
 export default async function apiAuthSignIn(credentials: {
@@ -99,6 +100,29 @@ export async function deleteProductByIdFromExternalApi(id: number) {
     return data;
   } catch (error) {
     console.log("No connection to Backend deleteProductByIdFromExternalApi");
+    return null;
+  }
+}
+
+
+export async function createTaskFromExternalApi(task: Task) {
+  try {
+    let session = await getServerAuthSession() as any;
+    const response = await fetch(`${BACKEND_API}/tasks`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + session.accessToken,
+      },
+      body: JSON.stringify(task),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to create task');
+    }
+    const data = await response.text();
+    return data;
+  } catch (error) {
+    console.log("No connection to Backend createTaskFromExternalApi");
     return null;
   }
 }

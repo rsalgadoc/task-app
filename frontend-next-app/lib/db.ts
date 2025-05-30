@@ -2,13 +2,13 @@ import 'server-only';
 
 import {
   pgEnum} from 'drizzle-orm/pg-core';
-import {deleteProductByIdFromExternalApi, getProductsFromExternalApi} from "./../utils/api";
+import {createTaskFromExternalApi, deleteProductByIdFromExternalApi, getProductsFromExternalApi} from "./../utils/api";
 export const db = null;
 
 export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
 
 export interface Task {
-  id: number;
+  id: number | null;
   state: State;
   priority: string;
   description: string;
@@ -17,20 +17,20 @@ export interface Task {
 }
 export interface State {
   id: number;
-  name: string;
+  name: string | null;
 }
 export interface Assigned {
   id: number;
-  fullName: string;
-  email: string;
-  password: string;
-  createdAt: string;
-  updatedAt: string;
-  enabled: boolean;
-  accountNonLocked: boolean;
-  accountNonExpired: boolean;
-  credentialsNonExpired: boolean;
-  username: string;
+  fullName: string | null;
+  email: string | null;
+  password: string | null;
+  createdAt: string | null;
+  updatedAt: string | null;
+  enabled: boolean | null;
+  accountNonLocked: boolean | null;
+  accountNonExpired: boolean | null;
+  credentialsNonExpired: boolean | null;
+  username: string | null;
   authorities?: (null)[] | null;
 }
 
@@ -67,4 +67,8 @@ export async function getProducts(
 
 export async function deleteProductById(id: number) {
   await deleteProductByIdFromExternalApi(id);
+}
+
+export async function createTaskDb(task: Task) {
+ await createTaskFromExternalApi(task);
 }
