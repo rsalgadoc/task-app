@@ -9,11 +9,11 @@ export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
 
 export interface Task {
   id: number | null;
-  state: State;
+  state: State | null;
   priority: string;
   description: string;
   type: string;
-  assigned: Assigned;
+  assigned: Assigned | null;
 }
 export interface State {
   id: number;

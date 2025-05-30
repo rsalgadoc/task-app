@@ -18,7 +18,7 @@ export function Product({ product }: { product: Task }) {
       <TableCell className="font-medium">{product.id}</TableCell>
       <TableCell>
         <Badge variant="outline" className="capitalize">
-          {product.state.name}
+          {product.state?.name}
         </Badge>
       </TableCell>
       <TableCell className="hidden md:table-cell">{product.priority}</TableCell>

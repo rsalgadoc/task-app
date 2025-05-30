@@ -24,7 +24,7 @@ export async function User() {
           className="overflow-hidden rounded-full"
         >
           <Image
-            src={'/placeholder-user.jpg'}
+            src={'/frontend-next-app/placeholder-user.jpg'}
             width={36}
             height={36}
             alt="Avatar"
