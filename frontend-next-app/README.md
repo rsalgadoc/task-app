@@ -97,3 +97,23 @@ printenv
 ```
 
 curl http://172.31.13.246:3003
+
+
+
+# Problemas
+
+
+`x-forwarded-host` header with value `172.31.13.246:3003` does not match `origin` header with value `ec2-3-133-140-15.us-east-2.compute.amazonaws.com` from a forwarded Server Actions request. Aborting the action.
+ ⨯ [Error: Invalid Server Actions request.] { digest: '2154006316' }
+
+Fix the eror with , adding this line on nginx
+
+proxy_set_header X-Forwarded-Host $host;
+
+Example:
+
+    location /frontend-next-app/ {
+       proxy_pass http://172.31.13.246:3003/frontend-next-app/;
+       proxy_set_header X-Forwarded-Host $host;
+    }
+
