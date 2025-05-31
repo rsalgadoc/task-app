@@ -54,14 +54,14 @@ export function ProductsTable({
           <TableHeader>
             <TableRow>
               <TableHead>Id</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead className="hidden md:table-cell">priority</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead className="hidden md:table-cell">Prioridad</TableHead>
               <TableHead className="hidden md:table-cell">
-                description
+                Descripcion
               </TableHead>
-              <TableHead className="hidden md:table-cell">type</TableHead>
+              <TableHead className="hidden md:table-cell">Tipo</TableHead>
               <TableHead>
-                <span className="sr-only">Actions</span>
+                Acciones
               </TableHead>
             </TableRow>
           </TableHeader>

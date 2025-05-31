@@ -10,7 +10,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { createTask } from '../../actions';
 
-export default function CustomersPage() {
+export default function Page() {
   return (
       <Card>
           <CardHeader>

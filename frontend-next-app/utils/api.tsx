@@ -128,3 +128,45 @@ export async function createTaskFromExternalApi(task: Task) {
 }
 
 
+export async function getTaskFromExternalApi(id: number) {
+  try {
+    let session = await getServerAuthSession() as any;
+    const response = await fetch(`${BACKEND_API}/tasks/`+id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + session.accessToken,
+      }
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch data');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("No connection to Backend getTaskFromExternalApi");
+    return null;
+  }
+}
+
+export async function updateTaskFromExternalApi(task: Task) {
+  try {
+    let session = await getServerAuthSession() as any;
+    const response = await fetch(`${BACKEND_API}/tasks/`+task.id, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + session.accessToken,
+      },
+      body: JSON.stringify(task),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to create task');
+    }
+    const data = await response.text();
+    return data;
+  } catch (error) {
+    console.log("No connection to Backend updateTaskFromExternalApi");
+    return null;
+  }
+}

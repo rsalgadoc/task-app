@@ -2,7 +2,7 @@ import 'server-only';
 
 import {
   pgEnum} from 'drizzle-orm/pg-core';
-import {createTaskFromExternalApi, deleteProductByIdFromExternalApi, getProductsFromExternalApi} from "./../utils/api";
+import {createTaskFromExternalApi, deleteProductByIdFromExternalApi, getProductsFromExternalApi, getTaskFromExternalApi, updateTaskFromExternalApi} from "./../utils/api";
 export const db = null;
 
 export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
@@ -71,4 +71,12 @@ export async function deleteProductById(id: number) {
 
 export async function createTaskDb(task: Task) {
  await createTaskFromExternalApi(task);
+}
+
+export async function updateTaskDb(task: Task) {
+ await updateTaskFromExternalApi(task);
+}
+
+export async function getTaskByIdDb(id: number){
+  return getTaskFromExternalApi(id);
 }
