@@ -27,6 +27,12 @@ cd backend-spring-boot-api
 # Execute the command
 docker build -t rsalgadoc/taskmanagement .
 
+# Push the images to docker hub
+docker push rsalgadoc/taskmanagement 
+
+# On AWS pull the images
+docker pull rsalgadoc/taskmanagement 
+
 # Execute the command
 docker run -d --name backend-taskmanagement -p 8083:8080 --restart always rsalgadoc/taskmanagement
 ```
