@@ -103,7 +103,7 @@ curl http://172.31.13.246:3003
 # Problemas
 
 
-`x-forwarded-host` header with value `172.31.13.246:3003` does not match `origin` header with value `ec2-35-170-201-29.compute-1.amazonaws.com` from a forwarded Server Actions request. Aborting the action.
+`x-forwarded-host` header with value `172.31.13.246:3003` does not match `origin` header with value `ec2-44-201-227-174.compute-1.amazonaws.com` from a forwarded Server Actions request. Aborting the action.
  ⨯ [Error: Invalid Server Actions request.] { digest: '2154006316' }
 
 Fix the eror with , adding this line on nginx
